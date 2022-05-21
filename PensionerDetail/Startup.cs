@@ -36,10 +36,12 @@ namespace PensionerDetail
         {
 
             services.AddControllers();
-            services.AddSwaggerGen(c =>
+            /*services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "PensionerDetails", Version = "v1" });
-            });
+            });*/
+            services.AddSwaggerGen();
+            services.AddCors();
             services.AddDbContext<DataContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
@@ -65,7 +67,11 @@ namespace PensionerDetail
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseSwagger();
-            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebApplication1 v1"));
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "BTPENSIONERDETAILS API v1");
+
+            });
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
