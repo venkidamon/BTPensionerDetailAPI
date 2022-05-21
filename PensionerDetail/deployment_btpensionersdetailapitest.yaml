@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: btpensionersdetailapi-deployment
+  labels:
+    app: BTPensionersDetailAPI
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: BTPensionersDetailAPI
+  template:
+    metadata:
+      labels:
+        app: BTPensionersDetailAPI
+    spec:
+      containers:
+      - name: btpensionersdetailapi
+        image: btprojcr.azurecr.io/btpensionsdetailimage:latest
+        ports:
+        - containerPort: 8080
+      imagePullSecrets:
+      - name: btpmsvcsecret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: btpensionersdetailapisvc
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+    selector: 
+      app: BTPensionersDetailAPI
