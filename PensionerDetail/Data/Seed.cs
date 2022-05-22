@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PensionerDetail.Dtos;
+using PensionerDetail.Entities;
 
 namespace PensionerDetail.Data
 {
@@ -10,20 +11,39 @@ namespace PensionerDetail.Data
             if (await context.Pensioners.AnyAsync()) return;
 
             List<DataValue> pdetails = File.ReadAllLines("../PensionerDetail/Data/usersDetails.csv").Skip(1).Select(v => DataValue.FromCsv(v)).ToList();
+            foreach (var p in pdetails)
+            {
+                
+                var pensionerdetail = new PensionerDetails();
+                pensionerdetail.AadharNumber = p.AadharNumber;
+                pensionerdetail.AccountNumber = p.AccountNumber;
+                pensionerdetail.Name = p.Name;
+                pensionerdetail.DateOfBirth = p.DateOfBirth;
+                pensionerdetail.PanCardNumber = p.PanCardNumber;
+                pensionerdetail.Salary = p.Salary;
+                pensionerdetail.Allowance = p.Allowance;
+                pensionerdetail.PensionType = p.PensionType;
+                pensionerdetail.BankName = p.BankName;
+                pensionerdetail.BankType = p.BankType;
+
+                context.Pensioners.Add(pensionerdetail);
+                
+            }
+            await context.SaveChangesAsync();
         }
     }
     public class DataValue
     {
-        string AadharNumber;
-        string Name;
-        string DateOfBirth;
-        string PanCardNumber;
-        double Salary;
-        double Allowance;
-        string PensionType;
-        string BankName;
-        string AccountNumber;
-        string BankType;
+        public string AadharNumber;
+        public string Name;
+        public string DateOfBirth;
+        public string PanCardNumber;
+        public double Salary;
+        public double Allowance;
+        public string PensionType;
+        public string BankName;
+        public string AccountNumber;
+        public string BankType;
 
         public static DataValue FromCsv(string csvLine)
         {

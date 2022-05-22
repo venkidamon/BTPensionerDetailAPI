@@ -4,7 +4,7 @@
 
 namespace PensionerDetail.Migrations
 {
-    public partial class InitialSetup : Migration
+    public partial class NewDatabase : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

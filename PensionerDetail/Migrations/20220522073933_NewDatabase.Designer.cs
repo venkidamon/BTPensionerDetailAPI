@@ -11,8 +11,8 @@ using PensionerDetail.Data;
 namespace PensionerDetail.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220518122604_InitialSetup")]
-    partial class InitialSetup
+    [Migration("20220522073933_NewDatabase")]
+    partial class NewDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
