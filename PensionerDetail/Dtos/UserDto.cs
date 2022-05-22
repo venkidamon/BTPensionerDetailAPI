@@ -12,5 +12,8 @@
         public string BankName { get; set; }
         public string AccountNumber { get; set; }
         public string BankType { get; set; }
+
+
+        
     }
 }
